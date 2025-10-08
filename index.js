@@ -7,7 +7,7 @@ const fetchCharacter = async (id = 1) => {
 };
 
 (async () => {
-    const character = await fetchCharacter(5);
+    const character = await fetchCharacter(20);
     const spinnerElement = document.getElementById('spinner');
     spinnerElement.style.display = 'none';
     const characterElement = document.getElementById('character');
