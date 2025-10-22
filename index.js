@@ -21,9 +21,22 @@ async function fetchRandomCharacter() {
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
   const raw = normalize(await resp.json());
 
-  const image =
-    (raw.image && raw.image.startsWith('http')) ? raw.image :
-    (raw.portrait_path ? `${CDN_BASE}${raw.portrait_path}` : '') || placeholder;
+  // Buscar cualquier campo con imagen posible
+  const possibleImage =
+    raw.image ||
+    raw.imageUrl ||
+    raw.picture ||
+    raw.portrait ||
+    raw.portrait_path ||
+    raw.thumbnail ||
+    raw.gallery ||
+    '';
+
+  const image = possibleImage.startsWith('http')
+    ? possibleImage
+    : possibleImage
+    ? `${CDN_BASE}${possibleImage}`
+    : 'https://placehold.co/400x400?text=No+Image';
 
   return {
     id: raw.id ?? safeId(),
