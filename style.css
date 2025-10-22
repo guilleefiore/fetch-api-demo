@@ -66,3 +66,6 @@ main{min(1100px,92%); margin:auto; padding: 22px 0; flex: 1; display: flex; flex
 
 .foot{padding:18px 20px; text-align:center; color:var(--muted); border-top:1px solid #1f2937} /*Formatea el pie de página*/
 .foot a{color:var(--accent)}
+
+#galeria { min-height: 200px; border: 2px dashed #fbbf24; padding: 8px; }
+.card { outline: 2px solid #fbbf24; }
