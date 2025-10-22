@@ -1,11 +1,24 @@
+// Endpoints
 const RANDOM_URL = 'https://thesimpsonsapi.com/api/characters/random';
-const CDN_BASE   = 'https://cdn.thesimpsonsapi.com/500';
+const CDN_BASE   = 'https://cdn.thesimpsonsapi.com/500'; // para portrait_path
+const FALLBACK_URL = 'https://api.sampleapis.com/simpsons/characters';
 
-// 1) fuente principal
+// DOM
+const $galeria = document.getElementById('galeria');
+const $btn     = document.getElementById('cargar');
+const $loader  = document.getElementById('loader');
+const $msg     = document.getElementById('mensaje');
+const $buscar  = document.getElementById('buscar');
+
+// Util
+const safeId = () => `id_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+const normalize = (d) => (Array.isArray(d) ? d[0] ?? {} : d ?? {});
+
+// Fetch principal
 async function fetchRandomCharacter() {
-  const resp = await fetch(RANDOM_URL, { cache: 'no-store', mode: 'cors' });
+  const resp = await fetch(RANDOM_URL, { cache: 'no-store' });
   if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-  const raw = Array.isArray(await resp.json()) ? (await resp.json())[0] : await resp.json();
+  const raw = normalize(await resp.json());
 
   const image =
     (raw.image && raw.image.startsWith('http')) ? raw.image :
@@ -13,47 +26,6 @@ async function fetchRandomCharacter() {
     'https://placehold.co/400x400?text=No+Image';
 
   return {
-    id: raw.id ?? `id_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+    id: raw.id ?? safeId(),
     name: raw.name ?? raw.fullName ?? 'Desconocido',
-    occupation: Array.isArray(raw.occupation) ? (raw.occupation[0] ?? '—') : (raw.occupation ?? '—'),
-    image
-  };
-}
-
-// 2) fallback alternativo (por si la API principal falla)
-async function fetchRandomCharacterFallback() {
-  const r = await fetch('https://api.sampleapis.com/simpsons/characters', { cache: 'no-store' });
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  const all = await r.json();
-  const p = all[Math.floor(Math.random()*all.length)];
-  return {
-    id: p.id || `id_${Date.now()}_${Math.random().toString(16).slice(2)}`,
-    name: p.name || 'Desconocido',
-    occupation: p.occupation || '—',
-    image: (p.image || p.thumbnail || 'https://placehold.co/400x400?text=No+Image')
-  };
-}
-
-// 3) usa ambas fuentes con “rescate”
-async function cargarPersonajes(n = 6) {
-  $msg.textContent = '';
-  $galeria.innerHTML = '';
-  $loader.classList.remove('oculto');
-  $btn.disabled = true;
-
-  try {
-    const tareas = Array.from({ length: n }, async () => {
-      try { return await fetchRandomCharacter(); }
-      catch (e) { console.warn('Principal falló, voy a fallback:', e); return await fetchRandomCharacterFallback(); }
-    });
-    const items = await Promise.all(tareas);
-    items.forEach(p => $galeria.appendChild(card(p)));
-  } catch (err) {
-    console.error(err);
-    $msg.textContent = 'No se pudo cargar la galería. Intentá nuevamente.';
-    $msg.classList.add('error');
-  } finally {
-    $loader.classList.add('oculto');
-    $btn.disabled = false;
-  }
-}
+    occupation: Array.isArray(raw.occupation) ? (raw.occupation[0] ?? '—') : (raw.occupation ?? '—')

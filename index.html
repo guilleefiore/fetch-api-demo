@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <title>Gallery - The Simpsons API</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/> <!--Ajusta el viewport al ancho del dispositivo y fija el zoom inicial-->
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
-    <header class="topbar">
-      <h1>Gallery of Characters</h1>
-      <div class="actions">
-        <input id="buscar" type="search" placeholder="Filtrar por nombre..."/>
-        <button id="cargar">Cargar nuevos</button>
-      </div>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <title>Galería – The Simpsons API</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Galería de Personajes</h1>
+    <div class="actions">
+      <input id="buscar" type="search" placeholder="Filtrar por nombre…" />
+      <button id="cargar" type="button">Cargar nuevos</button>
+    </div>
+  </header>
 
-    <main>
-      <div id="loader" class="loader oculto" aria-live="polite">Cargando...</div>
-      <div id="mensaje" class="mensaje"></div> <!-- Contenedor donde el script muestra mensajes para el usuario -->
-      <section id="galeria" class="grid"></section>
-    </main>
+  <main>
+    <div id="loader" class="loader oculto" aria-live="polite" aria-busy="true"></div>
+    <div id="mensaje" class="mensaje" role="status"></div>
+    <section id="galeria" class="grid" aria-live="polite"></section>
+  </main>
 
-    <footer class="foot">
-      <small>Fuente: <a href="https://thesimpsonsapi.com/" target="_blank" rel="noreferrer">thesimpsonsapi.com</a></small> <!-- rel="noreferrer": Abre el enlace sin enviar la URL de origen al sitio destino -->
-    </footer>
+  <footer class="foot">
+    <small>Fuente: <a href="https://thesimpsonsapi.com/" target="_blank" rel="noreferrer">thesimpsonsapi.com</a></small>
+  </footer>
 
-    <script src="index.js" defer></script>
-  </body>
+  <script src="index.js" defer></script>
+</body>
 </html>
