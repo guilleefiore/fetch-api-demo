@@ -2,14 +2,30 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <title>Fetch API Demo</title>
+    <title>Gallery - The Simpsons API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/> <!--Ajusta el viewport al ancho del dispositivo y fija el zoom inicial-->
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <span id="spinner" class="loader"></span>
-    <pre id="character"></pre>
-    <img id="character-image" src="="" alt="Character Image">
+    <header class="topbar">
+      <h1>Gallery of Characters</h1>
+      <div class="actions">
+        <input id="buscar" type="search" placeholder="Filtrar por nombre..."/>
+        <button id="cargar">Cargar nuevos</button>
+      </div>
+    </header>
+
+    <main>
+      <div id="loader" class="loader oculto" aria-live="polite">Cargando...</div>
+      <div id="mensaje" class="mensaje"></div> <!-- Contenedor donde el script muestra mensajes para el usuario -->
+      <section id="galeria" class="grid"></section>
+    </main>
+
+    <footer class="foot">
+      <small>Fuente: <a href="https://thesimpsonsapi.com/" target="_blank" rel="noreferrer">thesimpsonsapi.com</a></small> <!-- rel="noreferrer": Abre el enlace sin enviar la URL de origen al sitio destino -->
+    </footer>
+
     <script src="index.js"></script>
   </body>
 </html>
