@@ -18,7 +18,13 @@ main{
   width:min(1100px,92%); margin:auto; padding:22px 0; flex:1;
   display:flex; flex-direction:column; gap:16px;
 }
-.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr))}
+/* Grilla centrada: 3 columnas fijas */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 260px); /* 3 columnas */
+  justify-content: center;                 /* centra el bloque de columnas */
+  gap: 20px 24px;                          /* filas x columnas */
+}
 .card{
   background:var(--card); border:1px solid #1f2937; border-radius:16px; overflow:hidden;
   display:flex; flex-direction:column; min-height:270px; box-shadow:0 10px 30px rgba(0,0,0,.25);
