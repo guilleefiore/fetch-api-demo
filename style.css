@@ -38,3 +38,31 @@ main{min(1100px,92%); margin:auto; padding: 22px 0; flex: 1; display: flex; flex
   display: grid; gap: 16 px;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
+
+.card{
+  background: var(--card); border: 1px solid #1f2937; border-radius: 16px; overflow: hidden;
+  display: flex; flex-direction: column; min-height: 270px; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.card img{
+  width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #0b1220;
+}
+.card .info{padding: 10px 12px}
+.card .nombre{font-weight: 700;}
+.card .occupation{color: var(--muted); font-size:.92rem}
+
+.loader{
+  margin: 18px auto; width: 64px; height: 64px; border-radius: 50%;
+  background:
+    radial-gradient(farthest-side, var(--accent) 94%,#0000) top/8px 8px no-repeat,
+    conic-gradient(#0000 10%, var(--accent));
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 9px),#000 0);
+    animation:spin 1s infinite linear;
+}
+@keyframes spin {100%{transform:rotate(1turn)}} /*Define la animación*/
+.oculto{display:none}
+
+.mensaje{min-height:20px; text-align:center; color:var(--muted)}
+.mensaje.error{color:var(--error)}
+
+.foot{padding:18px 20px; text-align:center; color:var(--muted); border-top:1px solid #1f2937} /*Formatea el pie de página*/
+.foot a{color:var(--accent)}
